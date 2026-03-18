@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import { useTrends, useEngagement, usePlatformSummary, useGrowth } from '../../hooks/use-analytics';
+import { useTrends, useEngagement, usePlatformSummary, useGrowth, useMatchAnalytics } from '../../hooks/use-analytics';
 import Card from '../../components/ui/Card';
 import StatCard from '../../components/ui/StatCard';
 import Select from '../../components/ui/Select';
 import Spinner from '../../components/ui/Spinner';
-import { Users, Swords, DoorOpen, Gamepad2, TrendingUp, TrendingDown } from 'lucide-react';
+import { Users, Swords, DoorOpen, Gamepad2, TrendingUp, TrendingDown, CheckCircle, XCircle, Clock } from 'lucide-react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar } from 'recharts';
 
 export default function AnalyticsPage() {
@@ -13,6 +13,7 @@ export default function AnalyticsPage() {
   const { data: trends, isLoading: trendsLoading } = useTrends(days);
   const { data: engagement } = useEngagement(days);
   const { data: growth } = useGrowth(days);
+  const { data: matchAnalytics } = useMatchAnalytics(days);
 
   if (summaryLoading) return <div className="flex justify-center py-20"><Spinner /></div>;
 
@@ -116,6 +117,46 @@ export default function AnalyticsPage() {
             </BarChart>
           </ResponsiveContainer>
         </Card>
+      )}
+
+      {matchAnalytics && (
+        <>
+          <div className="mt-6 mb-6 grid gap-4 sm:grid-cols-3">
+            <StatCard label="Completion Rate" value={`${matchAnalytics.completionRate}%`} icon={CheckCircle} color="text-success" />
+            <StatCard label="Abandon Rate" value={`${matchAnalytics.abandonRate}%`} icon={XCircle} color="text-danger" />
+            <StatCard label="Total Matches" value={matchAnalytics.total ?? 0} icon={Swords} color="text-primary" />
+          </div>
+
+          {matchAnalytics.avgDurationBySport?.length > 0 && (
+            <div className="mb-6">
+              <Card title="Average Match Duration by Sport">
+                <ResponsiveContainer width="100%" height={280}>
+                  <BarChart data={matchAnalytics.avgDurationBySport}>
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="sport" tick={{ fontSize: 12 }} />
+                    <YAxis tick={{ fontSize: 12 }} label={{ value: 'Minutes', angle: -90, position: 'insideLeft' }} />
+                    <Tooltip formatter={(value: number) => [`${value} min`, 'Avg Duration']} />
+                    <Bar dataKey="avgDurationMinutes" fill="#8b5cf6" radius={[4, 4, 0, 0]} />
+                  </BarChart>
+                </ResponsiveContainer>
+              </Card>
+            </div>
+          )}
+
+          {matchAnalytics.peakHours?.length > 0 && (
+            <Card title="Peak Usage Hours">
+              <ResponsiveContainer width="100%" height={280}>
+                <BarChart data={matchAnalytics.peakHours}>
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="hour" tick={{ fontSize: 12 }} tickFormatter={(h: number) => `${h}:00`} />
+                  <YAxis tick={{ fontSize: 12 }} />
+                  <Tooltip labelFormatter={(h: number) => `${h}:00 - ${h + 1}:00`} />
+                  <Bar dataKey="count" fill="#f59e0b" radius={[4, 4, 0, 0]} />
+                </BarChart>
+              </ResponsiveContainer>
+            </Card>
+          )}
+        </>
       )}
     </div>
   );

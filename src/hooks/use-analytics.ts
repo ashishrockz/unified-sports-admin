@@ -35,3 +35,10 @@ export function useRevenue() {
     queryFn: () => api.get('/analytics/revenue').then((r) => r.data),
   });
 }
+
+export function useMatchAnalytics(days = 30) {
+  return useQuery({
+    queryKey: ['analytics-match', days],
+    queryFn: () => api.get('/analytics/match-analytics', { params: { days } }).then((r) => r.data),
+  });
+}
