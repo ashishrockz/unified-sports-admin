@@ -9,10 +9,7 @@ import {
   BarChart3,
   ShieldCheck,
   Settings,
-  Key,
   ScrollText,
-  CreditCard,
-  Building2,
   Gamepad2,
   X,
 } from 'lucide-react';
@@ -24,11 +21,8 @@ const navItems = [
   { to: '/rooms', label: 'Rooms', icon: DoorOpen },
   { to: '/analytics', label: 'Analytics', icon: BarChart3 },
   { to: '/sport-types', label: 'Sport Types', icon: Gamepad2 },
-  { to: '/api-keys', label: 'API Keys', icon: Key },
   { to: '/audit-logs', label: 'Audit Logs', icon: ScrollText },
-  { to: '/subscription', label: 'Subscription', icon: CreditCard },
   { to: '/app-config', label: 'App Config', icon: Settings },
-  { to: '/client', label: 'Client', icon: Building2 },
 ];
 
 const superAdminItems = [

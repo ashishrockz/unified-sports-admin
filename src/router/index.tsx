@@ -15,11 +15,8 @@ import AdminsPage from '../pages/admins/AdminsPage';
 import AnalyticsPage from '../pages/analytics/AnalyticsPage';
 import ProfilePage from '../pages/profile/ProfilePage';
 import SportTypesPage from '../pages/sport-types/SportTypesPage';
-import ApiKeysPage from '../pages/api-keys/ApiKeysPage';
 import AuditLogsPage from '../pages/audit-logs/AuditLogsPage';
-import SubscriptionPage from '../pages/subscription/SubscriptionPage';
 import AppConfigPage from '../pages/app-config/AppConfigPage';
-import ClientPage from '../pages/client/ClientPage';
 
 export const router = createBrowserRouter([
   {
@@ -50,11 +47,8 @@ export const router = createBrowserRouter([
       { path: 'analytics', element: <AnalyticsPage /> },
       { path: 'profile', element: <ProfilePage /> },
       { path: 'sport-types', element: <SportTypesPage /> },
-      { path: 'api-keys', element: <ApiKeysPage /> },
       { path: 'audit-logs', element: <AuditLogsPage /> },
-      { path: 'subscription', element: <SubscriptionPage /> },
       { path: 'app-config', element: <AppConfigPage /> },
-      { path: 'client', element: <ClientPage /> },
       {
         path: 'admins',
         element: (
