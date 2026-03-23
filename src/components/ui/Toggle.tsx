@@ -8,11 +8,17 @@ export default function Toggle({ checked, onChange, label }: { checked: boolean;
         role="switch"
         aria-checked={checked}
         onClick={() => onChange(!checked)}
-        className={cn('relative inline-flex h-6 w-11 items-center rounded-full transition-colors', checked ? 'bg-primary' : 'bg-gray-300 dark:bg-gray-600')}
+        className={cn(
+          'relative inline-flex h-6 w-11 items-center rounded-full transition-all duration-300',
+          checked ? 'bg-primary shadow-sm shadow-primary/30' : 'bg-zinc-200 dark:bg-zinc-700'
+        )}
       >
-        <span className={cn('inline-block h-4 w-4 rounded-full bg-white transition-transform', checked ? 'translate-x-6' : 'translate-x-1')} />
+        <span className={cn(
+          'inline-block h-4 w-4 rounded-full bg-white shadow-sm transition-all duration-300',
+          checked ? 'translate-x-6' : 'translate-x-1'
+        )} />
       </button>
-      {label && <span className="text-sm text-gray-700 dark:text-gray-300">{label}</span>}
+      {label && <span className="text-sm text-zinc-700 dark:text-zinc-300">{label}</span>}
     </label>
   );
 }

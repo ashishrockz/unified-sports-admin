@@ -3,6 +3,7 @@ import { Link, useSearchParams, useNavigate } from 'react-router-dom';
 import { useResetPassword } from '../../hooks/use-auth';
 import Input from '../../components/ui/Input';
 import Button from '../../components/ui/Button';
+import { ArrowLeft, Lock } from 'lucide-react';
 
 export default function ResetPasswordPage() {
   const [searchParams] = useSearchParams();
@@ -21,39 +22,44 @@ export default function ResetPasswordPage() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-50 px-4 dark:bg-gray-950">
-      <div className="w-full max-w-sm">
+    <div className="flex min-h-screen items-center justify-center bg-surface-sunken px-4 dark:bg-zinc-950">
+      <div className="w-full max-w-[400px] animate-slide-up">
         <div className="mb-8 text-center">
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">Reset Password</h1>
-          <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">Enter your new password</p>
+          <div className="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-primary to-violet-500 shadow-lg shadow-primary/20">
+            <Lock className="h-5 w-5 text-white" />
+          </div>
+          <h1 className="text-xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-100">Reset Password</h1>
+          <p className="mt-2 text-[13px] text-zinc-500 dark:text-zinc-400">Enter your new password below</p>
         </div>
-        <form onSubmit={handleSubmit} className="space-y-4 rounded-xl border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-900">
-          <Input
-            label="New Password"
-            type="password"
-            value={newPassword}
-            onChange={(e) => setNewPassword(e.target.value)}
-            placeholder="Enter new password"
-            required
-          />
-          <Input
-            label="Confirm Password"
-            type="password"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            placeholder="Confirm new password"
-            error={confirmPassword && newPassword !== confirmPassword ? 'Passwords do not match' : undefined}
-            required
-          />
-          <Button type="submit" className="w-full" loading={resetPassword.isPending} disabled={!token}>
-            Reset Password
-          </Button>
-          <div className="text-center">
-            <Link to="/login" className="text-sm text-primary hover:underline">
-              Back to login
-            </Link>
+        <form onSubmit={handleSubmit} className="space-y-5">
+          <div className="rounded-2xl border border-zinc-200/60 bg-white p-6 shadow-sm dark:border-zinc-800/60 dark:bg-zinc-900 space-y-4">
+            <Input
+              label="New Password"
+              type="password"
+              value={newPassword}
+              onChange={(e) => setNewPassword(e.target.value)}
+              placeholder="Enter new password"
+              required
+            />
+            <Input
+              label="Confirm Password"
+              type="password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              placeholder="Confirm new password"
+              error={confirmPassword && newPassword !== confirmPassword ? 'Passwords do not match' : undefined}
+              required
+            />
+            <Button type="submit" className="w-full" size="lg" loading={resetPassword.isPending} disabled={!token}>
+              Reset Password
+            </Button>
           </div>
         </form>
+        <div className="mt-6 text-center">
+          <Link to="/login" className="inline-flex items-center gap-1.5 text-[13px] font-medium text-primary hover:text-primary-hover transition-colors">
+            <ArrowLeft className="h-3.5 w-3.5" /> Back to login
+          </Link>
+        </div>
       </div>
     </div>
   );

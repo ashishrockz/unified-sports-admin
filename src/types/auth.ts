@@ -1,3 +1,5 @@
+import type { Role } from '../config/permissions';
+
 export interface LoginRequest {
   email: string;
   password: string;
@@ -10,7 +12,7 @@ export interface LoginResponse {
     name: string;
     email: string;
     avatar?: string;
-    role: 'admin' | 'superadmin';
+    role: Role;
     status: string;
   };
 }

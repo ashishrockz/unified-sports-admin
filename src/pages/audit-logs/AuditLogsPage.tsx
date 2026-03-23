@@ -3,10 +3,16 @@ import { useAuditLogs } from '../../hooks/use-audit-logs';
 import Select from '../../components/ui/Select';
 import Pagination from '../../components/ui/Pagination';
 import EmptyState from '../../components/ui/EmptyState';
-import Spinner from '../../components/ui/Spinner';
+import Skeleton from '../../components/ui/Skeleton';
 import Badge from '../../components/ui/Badge';
 import { formatDateTime } from '../../lib/utils';
+import { ScrollText } from 'lucide-react';
 import type { AuditLog } from '../../types/auditLog';
+
+const ACTION_VARIANT: Record<string, string> = {
+  create: 'success', update: 'info', delete: 'danger',
+  login: 'primary', ban: 'danger', unban: 'warning',
+};
 
 export default function AuditLogsPage() {
   const [page, setPage] = useState(1);
@@ -14,13 +20,16 @@ export default function AuditLogsPage() {
   const [targetModel, setTargetModel] = useState('');
   const { data, isLoading } = useAuditLogs({ page, limit: 30, action: action || undefined, targetModel: targetModel || undefined });
 
-  const logs: AuditLog[] = data?.data ?? [];
+  const logs: AuditLog[] = data?.logs ?? [];
   const pagination = data?.pagination;
 
   return (
     <div>
-      <h2 className="mb-6 text-2xl font-bold text-gray-900 dark:text-gray-100">Audit Logs</h2>
-      <div className="mb-4 flex flex-col gap-3 sm:flex-row">
+      <div className="mb-6 animate-slide-up">
+        <h2 className="text-xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-100">Audit Logs</h2>
+        <p className="mt-1 text-[13px] text-zinc-500">Track all admin actions and system events</p>
+      </div>
+      <div className="mb-4 flex flex-col gap-3 sm:flex-row animate-stagger-1">
         <Select
           value={action}
           onChange={(e) => { setAction(e.target.value); setPage(1); }}
@@ -50,31 +59,44 @@ export default function AuditLogsPage() {
       </div>
 
       {isLoading ? (
-        <div className="flex justify-center py-20"><Spinner /></div>
+        <div className="space-y-3">
+          {[1,2,3,4,5].map(i => <Skeleton key={i} className="h-14 rounded-xl" />)}
+        </div>
       ) : logs.length === 0 ? (
-        <EmptyState message="No audit logs found" />
+        <EmptyState icon={ScrollText} message="No audit logs found" description="Logs will appear here as admin actions are performed" />
       ) : (
-        <div className="overflow-x-auto rounded-xl border border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-900">
+        <div className="overflow-x-auto rounded-2xl border border-zinc-200/60 bg-white shadow-sm dark:border-zinc-800/60 dark:bg-zinc-900 animate-stagger-2">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-gray-200 dark:border-gray-700">
-                <th className="px-4 py-3 text-left font-medium text-gray-500 dark:text-gray-400">Actor</th>
-                <th className="px-4 py-3 text-left font-medium text-gray-500 dark:text-gray-400">Action</th>
-                <th className="px-4 py-3 text-left font-medium text-gray-500 dark:text-gray-400">Target</th>
-                <th className="px-4 py-3 text-left font-medium text-gray-500 dark:text-gray-400">IP</th>
-                <th className="px-4 py-3 text-left font-medium text-gray-500 dark:text-gray-400">Date</th>
+              <tr className="border-b border-zinc-200 dark:border-zinc-800">
+                <th className="px-4 py-3 text-left text-[11px] font-semibold uppercase tracking-wider text-zinc-400">Actor</th>
+                <th className="px-4 py-3 text-left text-[11px] font-semibold uppercase tracking-wider text-zinc-400">Action</th>
+                <th className="px-4 py-3 text-left text-[11px] font-semibold uppercase tracking-wider text-zinc-400">Target</th>
+                <th className="px-4 py-3 text-left text-[11px] font-semibold uppercase tracking-wider text-zinc-400">IP</th>
+                <th className="px-4 py-3 text-left text-[11px] font-semibold uppercase tracking-wider text-zinc-400">Date</th>
               </tr>
             </thead>
             <tbody>
               {logs.map((log) => (
-                <tr key={log._id} className="border-b border-gray-100 dark:border-gray-800 last:border-0">
-                  <td className="px-4 py-3 text-gray-900 dark:text-gray-100">
-                    {typeof log.actor === 'object' ? log.actor.name : log.actor}
+                <tr key={log._id} className="border-b border-zinc-100 dark:border-zinc-800/50 last:border-0 hover:bg-zinc-50 dark:hover:bg-zinc-800/30 transition-colors">
+                  <td className="px-4 py-3">
+                    <div className="flex items-center gap-2.5">
+                      <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-zinc-100 text-[10px] font-semibold text-zinc-500 dark:bg-zinc-800 dark:text-zinc-400">
+                        {log.actor && typeof log.actor === 'object' ? log.actor.name?.charAt(0).toUpperCase() : 'S'}
+                      </div>
+                      <span className="font-medium text-zinc-900 dark:text-zinc-100">
+                        {log.actor && typeof log.actor === 'object' ? log.actor.name : (log.actor || 'System')}
+                      </span>
+                    </div>
                   </td>
-                  <td className="px-4 py-3"><Badge variant="info">{log.action}</Badge></td>
-                  <td className="px-4 py-3 text-gray-600 dark:text-gray-400">{log.targetModel}</td>
-                  <td className="px-4 py-3 font-mono text-xs text-gray-500">{log.ip}</td>
-                  <td className="px-4 py-3 text-gray-600 dark:text-gray-400">{formatDateTime(log.createdAt)}</td>
+                  <td className="px-4 py-3">
+                    <Badge variant={ACTION_VARIANT[log.action.split('.').pop() || ''] || 'info'} dot>{log.action}</Badge>
+                  </td>
+                  <td className="px-4 py-3">
+                    <Badge variant="neutral">{log.targetModel}</Badge>
+                  </td>
+                  <td className="px-4 py-3 font-mono text-[12px] text-zinc-400">{log.ip}</td>
+                  <td className="px-4 py-3 text-[13px] text-zinc-500 dark:text-zinc-400">{formatDateTime(log.createdAt)}</td>
                 </tr>
               ))}
             </tbody>

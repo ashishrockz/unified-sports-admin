@@ -17,6 +17,21 @@ export function useUpdateAppConfig() {
   });
 }
 
+export function useUploadAdMedia() {
+  return useMutation({
+    mutationFn: (file: File) => {
+      const fd = new FormData();
+      fd.append('media', file);
+      return api
+        .post('/upload/ad-media', fd, {
+          headers: { 'Content-Type': 'multipart/form-data' },
+        })
+        .then((r) => r.data as { url: string; publicId: string; resourceType: string; format: string });
+    },
+    onSuccess: () => toast.success('Media uploaded'),
+  });
+}
+
 export function useTestSms() {
   return useMutation({
     mutationFn: (data: { phoneNumber: string }) => api.post('/app-config/test-sms', data),

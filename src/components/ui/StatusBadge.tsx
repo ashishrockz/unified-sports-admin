@@ -11,6 +11,7 @@ const statusMap: Record<string, { variant: string; label: string }> = {
   not_started: { variant: 'neutral', label: 'Not Started' },
   innings_break: { variant: 'info', label: 'Innings Break' },
   set_break: { variant: 'info', label: 'Set Break' },
+  super_over: { variant: 'warning', label: 'Super Over' },
   trial: { variant: 'warning', label: 'Trial' },
   past_due: { variant: 'danger', label: 'Past Due' },
   cancelled: { variant: 'danger', label: 'Cancelled' },

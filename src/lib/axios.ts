@@ -4,7 +4,11 @@ import { toast } from 'sonner';
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080/api',
   timeout: 30000,
-  headers: { 'Content-Type': 'application/json' },
+  headers: {
+    'Content-Type': 'application/json',
+    'Cache-Control': 'no-cache, no-store',
+    'Pragma': 'no-cache',
+  },
 });
 
 api.interceptors.request.use((config) => {
@@ -23,14 +27,14 @@ api.interceptors.request.use((config) => {
 api.interceptors.response.use(
   (res) => res,
   (error) => {
-    if (error.response?.status === 401) {
+    const isLoginRequest = error.config?.url?.includes('/admin/login');
+    if (error.response?.status === 401 && !isLoginRequest) {
       localStorage.removeItem('auth-storage');
       window.location.href = '/login';
+      return Promise.reject(error);
     }
     const msg = error.response?.data?.message || error.message || 'Something went wrong';
-    if (error.response?.status !== 401) {
-      toast.error(msg);
-    }
+    toast.error(msg);
     return Promise.reject(error);
   }
 );

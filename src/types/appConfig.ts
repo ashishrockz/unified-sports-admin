@@ -41,6 +41,15 @@ export interface AppConfig {
     primaryColor: string;
     accentColor: string;
     logoUrl: string;
+    splashScreen: {
+      enabled: boolean;
+      mediaType: 'image' | 'video';
+      mediaUrl: string;
+      durationSeconds: number;
+      backgroundColor: string;
+      showAppName: boolean;
+      showTagline: boolean;
+    };
   };
   advertisements: {
     enabled: boolean;

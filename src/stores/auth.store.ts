@@ -1,12 +1,14 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
+import type { Role } from '../config/permissions';
+import { hasPermission, hasAnyPermission, type Permission } from '../config/permissions';
 
 export interface AuthUser {
   _id: string;
   name: string;
   email: string;
   avatar?: string;
-  role: 'admin' | 'superadmin';
+  role: Role;
   status: string;
 }
 
@@ -18,6 +20,8 @@ interface AuthState {
   logout: () => void;
   isAuthenticated: () => boolean;
   isSuperAdmin: () => boolean;
+  can: (permission: Permission) => boolean;
+  canAny: (permissions: Permission[]) => boolean;
 }
 
 export const useAuthStore = create<AuthState>()(
@@ -29,7 +33,17 @@ export const useAuthStore = create<AuthState>()(
       updateUser: (user) => set({ user }),
       logout: () => set({ token: null, user: null }),
       isAuthenticated: () => !!get().token,
-      isSuperAdmin: () => get().user?.role === 'superadmin',
+      isSuperAdmin: () => get().user?.role === 'super_admin',
+      can: (permission) => {
+        const role = get().user?.role;
+        if (!role) return false;
+        return hasPermission(role, permission);
+      },
+      canAny: (permissions) => {
+        const role = get().user?.role;
+        if (!role) return false;
+        return hasAnyPermission(role, permissions);
+      },
     }),
     { name: 'auth-storage' }
   )

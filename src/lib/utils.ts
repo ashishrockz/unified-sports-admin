@@ -17,24 +17,3 @@ export function formatDateTime(date: string | Date) {
 export function formatRelative(date: string | Date) {
   return formatDistanceToNow(new Date(date), { addSuffix: true });
 }
-
-export function formatNumber(num: number) {
-  return new Intl.NumberFormat().format(num);
-}
-
-export function debounce<T extends (...args: any[]) => void>(fn: T, ms: number) {
-  let timer: ReturnType<typeof setTimeout>;
-  return (...args: Parameters<T>) => {
-    clearTimeout(timer);
-    timer = setTimeout(() => fn(...args), ms);
-  };
-}
-
-export function downloadBlob(blob: Blob, filename: string) {
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = filename;
-  a.click();
-  URL.revokeObjectURL(url);
-}

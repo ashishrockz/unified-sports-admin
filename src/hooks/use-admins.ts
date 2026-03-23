@@ -4,7 +4,11 @@ import { toast } from 'sonner';
 import type { ListParams } from '../types/common';
 import type { CreateAdminRequest } from '../types/admin';
 
-export function useAdmins(params: ListParams) {
+interface AdminListParams extends ListParams {
+  role?: string;
+}
+
+export function useAdmins(params: AdminListParams) {
   return useQuery({
     queryKey: ['admins', params],
     queryFn: () => api.get('/superadmin/admins', { params }).then((r) => r.data),

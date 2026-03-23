@@ -37,7 +37,7 @@ export default function ProfilePage() {
 
   return (
     <div className="mx-auto max-w-2xl space-y-6">
-      <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100">Profile</h2>
+      <h2 className="text-xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-100">Profile</h2>
 
       <Card>
         <div className="mb-6 flex items-center gap-4">
@@ -45,22 +45,22 @@ export default function ProfilePage() {
             {user?.avatar ? (
               <img src={user.avatar} className="h-20 w-20 rounded-full object-cover" alt="" />
             ) : (
-              <div className="flex h-20 w-20 items-center justify-center rounded-full bg-gray-200 text-2xl font-bold dark:bg-gray-700">
+              <div className="flex h-20 w-20 items-center justify-center rounded-full bg-zinc-100 text-2xl font-medium text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400">
                 {user?.name?.charAt(0).toUpperCase()}
               </div>
             )}
             <button
               onClick={() => fileRef.current?.click()}
-              className="absolute bottom-0 right-0 rounded-full bg-primary p-1.5 text-white hover:bg-primary-hover"
+              className="absolute bottom-0 right-0 rounded-full bg-primary p-1.5 text-white hover:bg-primary-hover transition-colors duration-150"
             >
               <Camera className="h-3.5 w-3.5" />
             </button>
             <input ref={fileRef} type="file" accept="image/*" className="hidden" onChange={handleAvatar} />
           </div>
           <div>
-            <p className="font-semibold text-gray-900 dark:text-gray-100">{user?.name}</p>
-            <p className="text-sm text-gray-500">{user?.email}</p>
-            <p className="text-xs capitalize text-gray-400">{user?.role}</p>
+            <p className="font-semibold text-zinc-900 dark:text-zinc-100">{user?.name}</p>
+            <p className="text-sm text-zinc-500">{user?.email}</p>
+            <p className="text-xs capitalize text-zinc-400">{user?.role}</p>
           </div>
         </div>
 
