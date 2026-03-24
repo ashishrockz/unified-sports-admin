@@ -55,7 +55,7 @@ export default function Sidebar({ open, onClose }: SidebarProps) {
               <div className="absolute inset-0 rounded-xl animate-pulse-glow" />
             </div>
             <div>
-              <h1 className="text-[15px] font-bold tracking-tight text-white">CricKet</h1>
+              <h1 className="text-[15px] font-bold tracking-tight text-white">Unified Sports</h1>
               <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-primary-muted/70">Admin Console</p>
             </div>
           </div>

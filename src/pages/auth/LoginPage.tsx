@@ -44,7 +44,7 @@ export default function LoginPage() {
               <Zap className="h-5 w-5 text-white" />
             </div>
             <div>
-              <span className="text-xl font-bold text-white tracking-tight">CricKet</span>
+              <span className="text-xl font-bold text-white tracking-tight">Unified Sports</span>
               <p className="text-[10px] font-semibold uppercase tracking-[0.15em] text-primary-muted/60">Sports Platform</p>
             </div>
           </div>
@@ -95,7 +95,7 @@ export default function LoginPage() {
               <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-br from-primary to-violet-500 shadow-lg shadow-primary/20">
                 <Zap className="h-5 w-5 text-white" />
               </div>
-              <span className="text-lg font-bold text-zinc-900 dark:text-white tracking-tight">CricKet</span>
+              <span className="text-lg font-bold text-zinc-900 dark:text-white tracking-tight">Unified Sports</span>
             </div>
             <h1 className="text-[26px] font-bold tracking-tight text-zinc-900 dark:text-zinc-100">Welcome back</h1>
             <p className="mt-2 text-[14px] text-zinc-500 dark:text-zinc-400">Sign in to your admin dashboard</p>
