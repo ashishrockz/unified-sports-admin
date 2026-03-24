@@ -4,8 +4,8 @@ import Card from '../../components/ui/Card';
 import StatCard from '../../components/ui/StatCard';
 import Select from '../../components/ui/Select';
 import Skeleton from '../../components/ui/Skeleton';
-import { Users, Swords, DoorOpen, Gamepad2, TrendingUp, TrendingDown, CheckCircle, XCircle, Activity, Clock } from 'lucide-react';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar, AreaChart, Area } from 'recharts';
+import { Users, Swords, DoorOpen, Gamepad2, TrendingUp, TrendingDown, CheckCircle, XCircle } from 'lucide-react';
+import { XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar, AreaChart, Area } from 'recharts';
 
 const chartGrid = { strokeDasharray: '3 3', stroke: '#f1f5f9', vertical: false as const };
 const axisTick = { fontSize: 12, fill: '#a1a1aa' };
@@ -192,7 +192,7 @@ export default function AnalyticsPage() {
                     <CartesianGrid {...chartGrid} />
                     <XAxis dataKey="sport" tick={axisTick} axisLine={false} tickLine={false} />
                     <YAxis tick={axisTick} axisLine={false} tickLine={false} label={{ value: 'Minutes', angle: -90, position: 'insideLeft', fill: '#a1a1aa', fontSize: 12 }} />
-                    <Tooltip {...tooltipStyle} formatter={(value: number) => [`${value} min`, 'Avg Duration']} />
+                    <Tooltip {...tooltipStyle} formatter={(value: any) => [`${value} min`, 'Avg Duration']} />
                     <Bar dataKey="avgDurationMinutes" fill="url(#durationGradient)" radius={[8, 8, 0, 0]} />
                     <defs>
                       <linearGradient id="durationGradient" x1="0" y1="0" x2="0" y2="1">
@@ -213,7 +213,7 @@ export default function AnalyticsPage() {
                   <CartesianGrid {...chartGrid} />
                   <XAxis dataKey="hour" tick={axisTick} axisLine={false} tickLine={false} tickFormatter={(h: number) => `${h}:00`} />
                   <YAxis tick={axisTick} axisLine={false} tickLine={false} />
-                  <Tooltip {...tooltipStyle} labelFormatter={(h: number) => `${h}:00 - ${h + 1}:00`} cursor={{ fill: 'rgba(99,102,241,0.04)' }} />
+                  <Tooltip {...tooltipStyle} labelFormatter={(h: any) => `${h}:00 - ${Number(h) + 1}:00`} cursor={{ fill: 'rgba(99,102,241,0.04)' }} />
                   <Bar dataKey="count" fill="url(#hourGradient)" radius={[8, 8, 0, 0]} />
                   <defs>
                     <linearGradient id="hourGradient" x1="0" y1="0" x2="0" y2="1">

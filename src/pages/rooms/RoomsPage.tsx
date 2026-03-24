@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { useRooms, useRoomDetail, useAbandonRoom } from '../../hooks/use-rooms';
-import { useAuthStore } from '../../stores/auth.store';
 import SearchInput from '../../components/ui/SearchInput';
 import Select from '../../components/ui/Select';
 import Pagination from '../../components/ui/Pagination';
@@ -24,8 +23,6 @@ export default function RoomsPage() {
   const abandonRoom = useAbandonRoom();
   const [abandonId, setAbandonId] = useState<string | null>(null);
   const [detailId, setDetailId] = useState<string | null>(null);
-  const role = useAuthStore((s) => s.user?.role);
-
   const rooms: Room[] = data?.rooms ?? [];
   const pagination = data?.pagination;
 

@@ -11,11 +11,11 @@ import { ROLE_LABELS } from '../../config/permissions';
 import {
   Users, UserCheck, UserX, Ban, ShieldCheck, Swords, DoorOpen,
   Gamepad2, CheckCircle, XCircle, Activity, Clock, BarChart3,
-  Zap, ArrowRight, TrendingUp, Calendar,
+  Zap, ArrowRight, Calendar,
 } from 'lucide-react';
 import {
   PieChart, Pie, Cell, ResponsiveContainer, Tooltip,
-  BarChart, Bar, XAxis, YAxis, CartesianGrid, AreaChart, Area,
+  BarChart, Bar, XAxis, YAxis, CartesianGrid,
 } from 'recharts';
 import { format } from 'date-fns';
 import { useNavigate } from 'react-router-dom';
@@ -342,7 +342,7 @@ function SuperAdminDashboard() {
                 <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
                 <XAxis dataKey="hour" tick={{ fontSize: 12, fill: '#94a3b8' }} tickFormatter={(h: number) => `${h}:00`} axisLine={false} tickLine={false} />
                 <YAxis tick={{ fontSize: 12, fill: '#94a3b8' }} axisLine={false} tickLine={false} />
-                <Tooltip contentStyle={tooltipStyle} labelFormatter={(h: number) => `${h}:00`} cursor={{ fill: 'rgba(99,102,241,0.04)' }} />
+                <Tooltip contentStyle={tooltipStyle} labelFormatter={(h: any) => `${h}:00`} cursor={{ fill: 'rgba(99,102,241,0.04)' }} />
                 <Bar dataKey="count" fill="url(#barGradient)" radius={[8, 8, 0, 0]} />
                 <defs>
                   <linearGradient id="barGradient" x1="0" y1="0" x2="0" y2="1">

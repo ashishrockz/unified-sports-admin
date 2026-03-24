@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState } from 'react';
 import {
   useUsers, useBanUser, useUnbanUser, useActivateUser, useDeactivateUser,
   useBulkAction, useExportUsers, useUserDetail,
@@ -12,7 +12,6 @@ import Modal from '../../components/ui/Modal';
 import ConfirmDialog from '../../components/ui/ConfirmDialog';
 import EmptyState from '../../components/ui/EmptyState';
 import Spinner from '../../components/ui/Spinner';
-import Badge from '../../components/ui/Badge';
 import Can from '../../components/guards/Can';
 import { formatDate, formatDateTime, formatRelative } from '../../lib/utils';
 import { Eye, Download, Users as UsersIcon, Mail, Phone, Calendar, Shield } from 'lucide-react';

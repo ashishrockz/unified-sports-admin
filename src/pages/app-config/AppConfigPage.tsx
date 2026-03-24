@@ -9,7 +9,6 @@ import Can from '../../components/guards/Can';
 import { cn } from '../../lib/utils';
 import {
   ToggleLeft,
-  Wrench,
   AlertTriangle,
   Palette,
   FileText,
@@ -24,7 +23,6 @@ import {
   Send,
   Eye,
   EyeOff,
-  Smartphone,
   Image,
   Film,
   Clock,

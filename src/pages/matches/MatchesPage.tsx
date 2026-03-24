@@ -1,13 +1,11 @@
 import { useState } from 'react';
 import { useMatches, useMatchDetail, useAbandonMatch } from '../../hooks/use-matches';
-import { useAuthStore } from '../../stores/auth.store';
 import SearchInput from '../../components/ui/SearchInput';
 import Select from '../../components/ui/Select';
 import Pagination from '../../components/ui/Pagination';
 import StatusBadge from '../../components/ui/StatusBadge';
 import Button from '../../components/ui/Button';
 import Modal from '../../components/ui/Modal';
-import Card from '../../components/ui/Card';
 import ConfirmDialog from '../../components/ui/ConfirmDialog';
 import EmptyState from '../../components/ui/EmptyState';
 import Spinner from '../../components/ui/Spinner';
@@ -25,8 +23,6 @@ export default function MatchesPage() {
   const abandonMatch = useAbandonMatch();
   const [abandonId, setAbandonId] = useState<string | null>(null);
   const [detailId, setDetailId] = useState<string | null>(null);
-  const role = useAuthStore((s) => s.user?.role);
-
   const matches: Match[] = data?.matches ?? [];
   const pagination = data?.pagination;
 

@@ -9,7 +9,6 @@ import {
   ScrollText,
   Gamepad2,
   Server,
-  FileText,
   Bell,
   type LucideIcon,
 } from 'lucide-react';
